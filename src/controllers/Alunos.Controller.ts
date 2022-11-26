@@ -5,6 +5,36 @@ import { AlunosServices, AlunoInterface } from "../services";
 
 const alunosServices = new AlunosServices();
 
+function verifyErrors(
+  nome: string,
+  sobrenome: string,
+  idade: number,
+  curso: string
+) {
+  const errors = [];
+
+  if (!nome || validator.isEmpty(nome.trim())) {
+    errors.push("O nome é obrigatório!");
+  }
+
+  if (!sobrenome || validator.isEmpty(sobrenome.trim())) {
+    errors.push("O sobrenome é obrigatório!");
+  }
+
+  if (typeof idade != "number") {
+    errors.push("A idade deve ser uma numero válido!");
+  }
+
+  if (idade < 18) {
+    errors.push("A idade precisa se maior que 18");
+  }
+
+  if (!curso || validator.isEmpty(curso.trim())) {
+    errors.push("O curso é obrigatório!");
+  }
+  return errors;
+}
+
 class AlunosController {
   index(req: Request, res: Response) {
     const result = alunosServices.getAlunos();
@@ -31,28 +61,8 @@ class AlunosController {
   store(req: Request, res: Response) {
     const { nome, sobrenome, idade, curso } = req.body;
 
-    const errors = [];
-
-    if (!nome || validator.isEmpty(nome.trim())) {
-      errors.push("O nome é obrigatório!");
-    }
-
-    if (!sobrenome || validator.isEmpty(sobrenome.trim())) {
-      errors.push("O sobrenome é obrigatório!");
-    }
-
-    if (typeof idade != "number") {
-      errors.push("A idade deve ser uma numero válido!");
-    }
-
-    if (idade < 18) {
-      errors.push("A idade precisa se maior que 18");
-    }
-
-    if (!curso || validator.isEmpty(curso.trim())) {
-      errors.push("O curso é obrigatório!");
-    }
-
+    const errors = verifyErrors(nome, sobrenome, idade, curso);
+    console.log(errors);
     if (errors.length > 0) {
       return res.status(400).json(errors);
     }
