@@ -1,13 +1,14 @@
 import express from "express";
 import dotenv from "dotenv";
-import { router } from "./router";
+import { AlunosRouter } from "./routes";
 
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-app.use(router);
+app.use(express.json());
+app.use(AlunosRouter);
 
 app.listen(PORT, () => {
   console.log(
