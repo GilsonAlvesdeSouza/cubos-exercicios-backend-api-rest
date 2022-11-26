@@ -1,5 +1,5 @@
 interface AlunoInterface {
-  id: number;
+  id: number | undefined;
   nome: string;
   sobrenome: string;
   idade: number;
@@ -8,7 +8,7 @@ interface AlunoInterface {
 
 const alunos: Array<AlunoInterface> = [
   {
-    id: 3,
+    id: 1,
     nome: "Marcos",
     sobrenome: "Silveira",
     idade: 36,
@@ -16,7 +16,8 @@ const alunos: Array<AlunoInterface> = [
   },
 ];
 
-class Alunos {
+let alunosId = 1;
+class AlunosServices {
   getAlunos() {
     return alunos;
   }
@@ -25,6 +26,16 @@ class Alunos {
     const aluno = alunos.find((aluno) => aluno.id === id);
     return aluno;
   }
+
+  merge(aluno: AlunoInterface) {
+    if (aluno.id) {
+    }
+
+    aluno.id = alunosId + 1;
+    alunosId = aluno.id;
+    alunos.push(aluno);
+    return aluno;
+  }
 }
 
-export { Alunos };
+export { AlunosServices, AlunoInterface };

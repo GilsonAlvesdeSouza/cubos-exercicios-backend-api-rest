@@ -1,3 +1,3 @@
-import { Alunos } from "./AlunosService";
+import { AlunosServices, AlunoInterface } from "./AlunosService";
 
-export{Alunos}
+export { AlunosServices, AlunoInterface };

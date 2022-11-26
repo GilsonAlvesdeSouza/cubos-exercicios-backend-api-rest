@@ -10,5 +10,6 @@ router.get("/", (req: Request, res: Response) => {
 
 router.get("/alunos", isAuthenticated, alunosController.index);
 router.get("/alunos/:id", isAuthenticated, alunosController.getById);
+router.post("/alunos", isAuthenticated, alunosController.store);
 
 export { router as AlunosRouter };

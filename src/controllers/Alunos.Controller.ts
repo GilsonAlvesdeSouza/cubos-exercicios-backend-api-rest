@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import validator from "validator";
 
-import { Alunos } from "../services";
+import { AlunosServices, AlunoInterface } from "../services";
 
-const alunos = new Alunos();
+const alunosServices = new AlunosServices();
 
 class AlunosController {
   index(req: Request, res: Response) {
-    const result = alunos.getAlunos();
+    const result = alunosServices.getAlunos();
     res.json(result);
   }
 
@@ -19,13 +19,55 @@ class AlunosController {
         .send({ mensagem: "O 'ID' deve ser um número válido!" });
     }
 
-    const result = alunos.getById(Number(id));
+    const result = alunosServices.getById(Number(id));
 
     if (result) {
       return res.status(200).json(result);
     }
 
     res.status(404).json({ msg: "Aluno não encontrado!" });
+  }
+
+  store(req: Request, res: Response) {
+    const { nome, sobrenome, idade, curso } = req.body;
+
+    const errors = [];
+
+    if (!nome || validator.isEmpty(nome.trim())) {
+      errors.push("O nome é obrigatório!");
+    }
+
+    if (!sobrenome || validator.isEmpty(sobrenome.trim())) {
+      errors.push("O sobrenome é obrigatório!");
+    }
+
+    if (typeof idade != "number") {
+      errors.push("A idade deve ser uma numero válido!");
+    }
+
+    if (idade < 18) {
+      errors.push("A idade precisa se maior que 18");
+    }
+
+    if (!curso || validator.isEmpty(curso.trim())) {
+      errors.push("O curso é obrigatório!");
+    }
+
+    if (errors.length > 0) {
+      return res.status(400).json(errors);
+    }
+
+    const newAluno: AlunoInterface = {
+      id: undefined,
+      nome,
+      sobrenome,
+      idade,
+      curso,
+    };
+
+    alunosServices.merge(newAluno);
+
+    return res.status(201).json({});
   }
 }
 
