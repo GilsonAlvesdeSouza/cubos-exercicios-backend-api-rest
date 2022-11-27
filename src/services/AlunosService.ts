@@ -6,20 +6,13 @@ interface AlunoInterface {
   curso: string;
 }
 
-const alunos: Array<AlunoInterface> = [
-  {
-    id: 1,
-    nome: "Marcos",
-    sobrenome: "Silveira",
-    idade: 36,
-    curso: "Programação do Zero",
-  },
-];
+let alunos: Array<AlunoInterface> = [];
 
-let alunosId = 1;
+let alunosId = 0;
 class AlunosServices {
   getAlunos() {
-    return alunos;
+    return 
+    alunos;
   }
 
   getById(id: number) {
@@ -35,6 +28,19 @@ class AlunosServices {
     alunosId = aluno.id;
     alunos.push(aluno);
     return aluno;
+  }
+
+  remove(id: number) {
+    const aluno = alunos.find((aluno) => aluno.id === id);
+
+    if (!aluno) {
+      return false;
+    }
+
+    const idAluno = aluno.id;
+
+    alunos = alunos.filter((aluno) => aluno.id !== idAluno);
+    return true;
   }
 }
 
