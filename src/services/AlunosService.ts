@@ -10,9 +10,8 @@ let alunos: Array<AlunoInterface> = [];
 
 let alunosId = 0;
 class AlunosServices {
-  getAlunos() {
-    return 
-    alunos;
+  getAll() {
+    return;
   }
 
   getById(id: number) {

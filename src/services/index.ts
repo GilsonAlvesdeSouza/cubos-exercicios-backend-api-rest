@@ -1,3 +1,4 @@
 import { AlunosServices, AlunoInterface } from "./AlunosService";
+import { ConvidadoService } from "./ConvidadosService";
 
-export { AlunosServices, AlunoInterface };
+export { AlunosServices, AlunoInterface, ConvidadoService };

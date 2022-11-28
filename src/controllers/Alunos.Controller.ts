@@ -6,7 +6,7 @@ import { AlunosServices, AlunoInterface } from "../services";
 const alunosServices = new AlunosServices();
 class AlunosController {
   index(req: Request, res: Response) {
-    const result = alunosServices.getAlunos();
+    const result = alunosServices.getAll();
     res.json(result);
   }
 
@@ -33,7 +33,7 @@ class AlunosController {
     const errors = AlunosController.verifyErrors(nome, sobrenome, idade, curso);
 
     if (errors.length > 0) {
-      return res.status(400).json(errors);
+      return res.status(400).json({ errors: errors });
     }
 
     const newAluno: AlunoInterface = {
