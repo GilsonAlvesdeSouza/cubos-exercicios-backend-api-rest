@@ -43,8 +43,19 @@ class ConvidadoService {
     }
   }
 
-  private static nameFormat(nome: string) {
-    const nameSplit = nome.split(" ");
+  remove(name: string) {
+    const convidado = convidados.find(
+      (convidado) => convidado.toLowerCase() === name.toLowerCase()
+    );
+
+    if (convidados) {
+      convidados = convidados.filter((convidado) => convidado !== name);
+      return convidado;
+    }
+  }
+
+  private static nameFormat(name: string) {
+    const nameSplit = name.split(" ");
     let count = 0;
 
     const result = nameSplit.reduce((acc, el, _, array) => {

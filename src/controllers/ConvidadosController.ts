@@ -3,7 +3,7 @@ import { ConvidadoService } from "../services";
 
 const convidadoService = new ConvidadoService();
 
-class ConvidadoController {
+class ConvidadosController {
   index(req: Request, res: Response) {
     const nome = req.query.nome as string;
     if (nome) {
@@ -37,6 +37,25 @@ class ConvidadoController {
     }
     return res.status(201).json({ mensagem: "Convidado adicionado!" });
   }
+
+  destroy(req: Request, res: Response) {
+    const nome = req.params.nome as string;
+
+    if (!nome) {
+      return res.status(400).json({ mensagem: "O nome é obrigatório!" });
+    }
+
+    const result = convidadoService.remove(nome);
+
+    if (!result) {
+      return res.status(400).json({
+        mensagem:
+          "O nome do convidado a ser removido não existe na lista. Nenhum convidado foi removido.",
+      });
+    }
+
+    res.status(200).json({ mensagem: "Convidado removido." });
+  }
 }
 
-export { ConvidadoController };
+export { ConvidadosController };
