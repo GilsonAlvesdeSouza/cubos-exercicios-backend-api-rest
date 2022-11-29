@@ -5,6 +5,16 @@ let convidados: Array<string> = [
   "Juliana",
   "Lucas",
   "Roberto",
+  "Fala Mala",
+  "Crhistina",
+  "Mara",
+  "Agua",
+  "Terra",
+  "Fulano",
+  "Beltrano",
+  "Rosa",
+  "Gilson",
+  "franciele",
 ];
 
 class ConvidadoService {
@@ -12,6 +22,44 @@ class ConvidadoService {
     return convidados.sort((a, b) => {
       return a > b ? 1 : -1;
     });
+  }
+
+  getByName(name: string) {
+    return convidados.find(
+      (convidado) => convidado.toLowerCase() === name.toLowerCase()
+    );
+  }
+
+  save(name: string) {
+    const exists = convidados.find(
+      (convidado) =>
+        convidado.toLowerCase().trim() === name.toLowerCase().trim()
+    );
+
+    if (!exists) {
+      const nomeFormatado = ConvidadoService.nameFormat(name);
+      convidados.push(nomeFormatado);
+      return name;
+    }
+  }
+
+  private static nameFormat(nome: string) {
+    const nameSplit = nome.split(" ");
+    let count = 0;
+
+    const result = nameSplit.reduce((acc, el, _, array) => {
+      count++;
+      el.trim();
+      if (count === array.length) {
+        return (acc +=
+          el[0].toLocaleUpperCase() + el.slice(1, el.length).toLowerCase());
+      }
+      acc +=
+        el[0].toLocaleUpperCase() + el.slice(1, el.length).toLowerCase() + " ";
+      return acc;
+    }, "");
+
+    return result;
   }
 }
 

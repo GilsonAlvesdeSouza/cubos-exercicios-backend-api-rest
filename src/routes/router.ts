@@ -17,5 +17,6 @@ router.post("/alunos", isAuthenticated, alunosController.store);
 router.delete("/alunos/:id", isAuthenticated, alunosController.destroy);
 
 router.get("/convidados", convidadoController.index);
+router.post("/convidados", convidadoController.save);
 
 export { router };
