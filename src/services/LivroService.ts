@@ -8,6 +8,13 @@ interface BookInterface {
   numPag: number;
 }
 
+interface EditBookParamsInterface {
+  title?: string;
+  author?: string;
+  year?: number;
+  numPag?: number;
+}
+
 const books: Array<BookInterface> = [
   {
     id: 1,
@@ -72,6 +79,36 @@ class BooksService {
 
     books.splice(index, 1);
 
+    return true;
+  }
+
+  editParams(id: number, params: EditBookParamsInterface) {
+    const index = books.findIndex((book) => book.id === id);
+
+    if (index === -1) {
+      return false;
+    }
+
+    let book = books[index];
+
+    console.log(params);
+
+    if (params.title) {
+      book.title = params.title as string;
+    }
+    if (params.author) {
+      book.author = params.author as string;
+    }
+    if (params.year) {
+      book.year = params.year as number;
+    }
+    if (params.numPag) {
+      book.numPag = params.numPag as number;
+    }
+
+    books[index] = book;
+
+    console.log(book);
     return true;
   }
 }
