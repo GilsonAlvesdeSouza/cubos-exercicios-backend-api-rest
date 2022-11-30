@@ -73,7 +73,7 @@ class BooksController {
       title,
       author,
       year: Number(year),
-      numPag: Number(year),
+      numPag: Number(numPag),
     };
 
     const result = booksService.merge(newBook);
