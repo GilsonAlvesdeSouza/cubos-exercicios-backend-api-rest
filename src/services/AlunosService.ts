@@ -11,7 +11,7 @@ let alunos: Array<AlunoInterface> = [];
 let alunosId = 0;
 class AlunosServices {
   getAll() {
-    return;
+    return alunos;
   }
 
   getById(id: number) {

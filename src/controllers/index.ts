@@ -1,4 +1,5 @@
-import { AlunosController } from "./Alunos.Controller";
+import { AlunosController } from "./AlunosController";
 import { ConvidadosController } from "./ConvidadosController";
+import { BooksController } from "./LivrosController";
 
-export { AlunosController, ConvidadosController };
+export { AlunosController, ConvidadosController, BooksController };
