@@ -15,7 +15,7 @@ class BooksController {
     const id = req.params.id;
 
     if (!Number(id)) {
-      return res.status(404).json({
+      return res.status(400).json({
         mensagem: "O valor do parâmetro ID da URL não é um número válido.",
       });
     }
@@ -37,7 +37,7 @@ class BooksController {
     const errors = BooksController.entryValidate(title, author, year, numPag);
 
     if (errors.length > 0) {
-      return res.status(404).json({ errors: errors });
+      return res.status(400).json({ errors: errors });
     }
 
     const newBook = {
@@ -65,7 +65,7 @@ class BooksController {
     }
 
     if (errors.length > 0) {
-      return res.status(404).json({ errors: errors });
+      return res.status(400).json({ errors: errors });
     }
 
     const newBook = {
@@ -83,6 +83,21 @@ class BooksController {
     }
 
     return res.status(200).json(result);
+  }
+
+  destroy(req: Request, res: Response) {
+    const id = req.params.id;
+
+    const result = booksService.delete(Number(id));
+
+    if (!result) {
+      return res.status(404).json({
+        mensagem: "Não existe livro a ser removido para o ID informado.",
+      });
+    }
+    res.status(200).json({
+      mensagem: "Livro removido.",
+    });
   }
 
   private static entryValidate(

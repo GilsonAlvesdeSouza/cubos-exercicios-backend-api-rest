@@ -1,3 +1,5 @@
+import { equal } from "assert";
+
 interface BookInterface {
   id: number | null;
   title: string;
@@ -57,6 +59,20 @@ class BooksService {
       return book;
     }
     return false;
+  }
+
+  delete(id: number) {
+    const book = this.getById(id);
+
+    if (!book) {
+      return false;
+    }
+
+    const index = books.findIndex((el) => el.id === book.id);
+
+    books.splice(index, 1);
+
+    return true;
   }
 }
 

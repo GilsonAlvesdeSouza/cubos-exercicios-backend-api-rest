@@ -24,5 +24,6 @@ router.get("/livros", booksController.index);
 router.get("/livros/:id", booksController.getById);
 router.post("/livros", booksController.store);
 router.put("/livros", booksController.edit);
+router.delete("/livros/:id", booksController.destroy);
 
 export { router };
